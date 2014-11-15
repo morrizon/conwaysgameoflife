@@ -26,10 +26,10 @@ class TestLifeGame(unittest.TestCase):
         self.game2 = Life.Game(self.dimension, self.life_map2)
 
     def test_dimension(self):
-        self.assertEqual(self.dimension, self.game.dimension)
+        self.assertEqual(self.dimension, self.game.dimension())
 
     def test_life_map(self):
-        self.assertEqual(self.life_map, self.game.life_map)
+        self.assertEqual(self.life_map, self.game.current_map())
 
     def test_neighbours(self):
         self.assertEqual(1, self.game.neighbours(0, 0))
@@ -45,6 +45,6 @@ class TestLifeGame(unittest.TestCase):
 
     def test_next_life_map(self):
         self.assertEqual(self.life_map, self.game.next_life_map())
-        self.assertEqual(self.life_map, self.game.life_map)
+        self.assertEqual(self.life_map, self.game.current_map())
         self.assertEqual(self.next_life_map2, self.game2.next_life_map())
-        self.assertEqual(self.next_life_map2, self.game2.life_map)
+        self.assertEqual(self.next_life_map2, self.game2.current_map())
