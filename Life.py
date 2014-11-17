@@ -54,3 +54,15 @@ class Game:
         self.life_map.current_map = life_map
         return self.life_map.current_map
 
+    def cell(self, is_life):
+        if is_life == 1:
+            return "\033[0;42m  \033[0m"
+        else:
+            return "\033[30;47m  \033[0m"
+
+    def show_current_map(self, separator=' '):
+        print ''
+        print '  ' + (separator.join('--' for cell in self.life_map.current_map[0]))
+        for row in self.life_map.current_map:
+            print '  ' + (separator.join(self.cell(is_life) for is_life in row))
+        print '  ' + (separator.join('--' for cell in self.life_map.current_map[0]))

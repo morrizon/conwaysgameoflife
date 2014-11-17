@@ -48,3 +48,9 @@ class TestLifeGame(unittest.TestCase):
         self.assertEqual(self.life_map, self.game.current_map())
         self.assertEqual(self.next_life_map2, self.game2.next_life_map())
         self.assertEqual(self.next_life_map2, self.game2.current_map())
+
+    def test_cell_value(self):
+        is_life = 1
+        self.assertEqual("\033[0;42m  \033[0m", self.game.cell(is_life))
+        is_life = 0
+        self.assertEqual("\033[30;47m  \033[0m", self.game.cell(is_life))
