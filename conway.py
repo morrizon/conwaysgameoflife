@@ -56,12 +56,12 @@ def print_and_wait(text):
     time.sleep(1)
 
 def main():
-    raw_grid = pattern_toad()
-    game = Conway.GameOfLife.Game(raw_grid)
-    print_and_wait(game.show_grid(''))
+    raw_universe = pattern_toad()
+    game = Conway.GameOfLife.Game(raw_universe)
+    print_and_wait(game.show_universe(''))
     for i in range(50):
         game.next_step()
-        print_and_wait(game.show_grid(''))
+        print_and_wait(game.show_universe(''))
 
 # Standard boilerplate to call the main() function.
 if __name__ == '__main__':

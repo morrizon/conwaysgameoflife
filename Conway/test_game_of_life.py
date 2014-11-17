@@ -6,26 +6,26 @@ import unittest
 class TestLifeGame(unittest.TestCase):
 
     def setUp(self):
-        self.raw_grid = [ [0, 0, 0, 0, 0], \
+        self.raw_universe = [ [0, 0, 0, 0, 0], \
                           [0, 1, 1, 0, 0], \
                           [0, 1, 1, 0, 0], \
                           [0, 0, 0, 0, 0], \
                           [0, 0, 0, 0, 0]]
-        self.raw_grid2 = [ [0, 0, 0, 0, 0], \
+        self.raw_universe2 = [ [0, 0, 0, 0, 0], \
                            [0, 0, 1, 0, 0], \
                            [0, 0, 0, 1, 0], \
                            [0, 1, 0, 0, 0], \
                            [0, 0, 0, 0, 0]]
-        self.next_raw_grid2 = [ [0, 0, 0, 0, 0], \
+        self.next_raw_universe2 = [ [0, 0, 0, 0, 0], \
                                 [0, 0, 0, 0, 0], \
                                 [0, 0, 1, 0, 0], \
                                 [0, 0, 0, 0, 0], \
                                 [0, 0, 0, 0, 0]]
-        self.game = GameOfLife.Game(self.raw_grid)
-        self.game2 = GameOfLife.Game(self.raw_grid2)
+        self.game = GameOfLife.Game(self.raw_universe)
+        self.game2 = GameOfLife.Game(self.raw_universe2)
 
-    def test_raw_grid(self):
-        self.assertEqual(self.raw_grid, self.game.raw_grid())
+    def test_raw_universe(self):
+        self.assertEqual(self.raw_universe, self.game.raw_universe())
 
     def test_neighbours(self):
         self.assertEqual(1, self.game.neighbours(0, 0))
@@ -40,10 +40,10 @@ class TestLifeGame(unittest.TestCase):
         self.assertEqual(0, self.game.next_status(4, 4))
 
     def test_next_step(self):
-        self.assertEqual(self.raw_grid, self.game.next_step())
-        self.assertEqual(self.raw_grid, self.game.raw_grid())
-        self.assertEqual(self.next_raw_grid2, self.game2.next_step())
-        self.assertEqual(self.next_raw_grid2, self.game2.raw_grid())
+        self.assertEqual(self.raw_universe, self.game.next_step())
+        self.assertEqual(self.raw_universe, self.game.raw_universe())
+        self.assertEqual(self.next_raw_universe2, self.game2.next_step())
+        self.assertEqual(self.next_raw_universe2, self.game2.raw_universe())
 
     def test_cell_value(self):
         is_life = 1
@@ -51,10 +51,10 @@ class TestLifeGame(unittest.TestCase):
         is_life = 0
         self.assertEqual("\033[30;47m  \033[0m", self.game.cell(is_life))
 
-    def test_grid_total_rows(self):
-        grid = GameOfLife.Grid(self.raw_grid)
-        self.assertEqual(5, grid.total_rows())
+    def test_universe_total_rows(self):
+        universe = GameOfLife.Universe(self.raw_universe)
+        self.assertEqual(5, universe.total_rows())
 
-    def test_grid_total_columns(self):
-        grid = GameOfLife.Grid(self.raw_grid)
-        self.assertEqual(5, grid.total_columns())
+    def test_universe_total_columns(self):
+        universe = GameOfLife.Universe(self.raw_universe)
+        self.assertEqual(5, universe.total_columns())
