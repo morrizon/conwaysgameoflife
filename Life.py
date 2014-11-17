@@ -61,8 +61,9 @@ class Game:
             return "\033[30;47m  \033[0m"
 
     def show_current_map(self, separator=' '):
-        print ''
-        print '  ' + (separator.join('--' for cell in self.life_map.current_map[0]))
+        output = ''
+        output += '  ' + (separator.join('--' for cell in self.life_map.current_map[0])) + "\n"
         for row in self.life_map.current_map:
-            print '  ' + (separator.join(self.cell(is_life) for is_life in row))
-        print '  ' + (separator.join('--' for cell in self.life_map.current_map[0]))
+            output += '  ' + (separator.join(self.cell(is_life) for is_life in row)) + "\n"
+        output += '  ' + (separator.join('--' for cell in self.life_map.current_map[0])) + "\n"
+        return output
