@@ -5,23 +5,25 @@ import copy
 
 class LifeMap:
 
-    def __init__(self, dimension, life_map, toroidal):
-        self.dimension = dimension
+    def __init__(self, life_map, toroidal=False):
         self.current_map = life_map
         self.toroidal = toroidal
 
     def cell(self, row, col):
-        if (row < 0) or (row >= self.dimension) or (col < 0) or (col >= self.dimension):
+        if (row < 0) or (row >= self.total_rows()) or (col < 0) or (col >= self.total_cols()):
             return 0
         return self.current_map[row][col]
 
+    def total_rows(self):
+        return len(self.current_map)
+
+    def total_cols(self):
+        return len(self.current_map[0])
+
 class Game:
 
-    def __init__(self, dimension, life_map, toroidal=False):
-        self.life_map = LifeMap(dimension, life_map, toroidal)
-
-    def dimension(self):
-        return self.life_map.dimension
+    def __init__(self, life_map, toroidal=False):
+        self.life_map = LifeMap(life_map, toroidal)
 
     def current_map(self):
         return self.life_map.current_map
@@ -48,8 +50,8 @@ class Game:
 
     def next_life_map(self):
         life_map = copy.deepcopy(self.life_map.current_map)
-        for row in range(self.dimension()):
-            for col in range(self.dimension()):
+        for row in range(self.life_map.total_rows()):
+            for col in range(self.life_map.total_cols()):
                 life_map[row][col] = self.next_status(row, col)
         self.life_map.current_map = life_map
         return self.life_map.current_map

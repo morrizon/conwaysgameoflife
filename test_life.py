@@ -21,12 +21,8 @@ class TestLifeGame(unittest.TestCase):
                                 [0, 0, 1, 0, 0], \
                                 [0, 0, 0, 0, 0], \
                                 [0, 0, 0, 0, 0]]
-        self.dimension = 5
-        self.game = Life.Game(self.dimension, self.life_map)
-        self.game2 = Life.Game(self.dimension, self.life_map2)
-
-    def test_dimension(self):
-        self.assertEqual(self.dimension, self.game.dimension())
+        self.game = Life.Game(self.life_map)
+        self.game2 = Life.Game(self.life_map2)
 
     def test_life_map(self):
         self.assertEqual(self.life_map, self.game.current_map())
@@ -54,3 +50,11 @@ class TestLifeGame(unittest.TestCase):
         self.assertEqual("\033[0;42m  \033[0m", self.game.cell(is_life))
         is_life = 0
         self.assertEqual("\033[30;47m  \033[0m", self.game.cell(is_life))
+
+    def test_life_map_total_rows(self):
+        life_map = Life.LifeMap(self.life_map)
+        self.assertEqual(5, life_map.total_rows())
+
+    def test_life_map_total_cols(self):
+        life_map = Life.LifeMap(self.life_map)
+        self.assertEqual(5, life_map.total_cols())

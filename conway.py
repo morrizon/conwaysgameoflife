@@ -57,7 +57,7 @@ def print_and_wait(text):
 
 def main():
     life_map = pattern_pulsar()
-    game = Life.Game(len(life_map), life_map)
+    game = Life.Game(life_map)
     print_and_wait(game.show_current_map(''))
     for i in range(50):
         game.next_life_map()
