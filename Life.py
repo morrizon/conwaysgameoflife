@@ -2,59 +2,58 @@
 
 import copy
 
+class Grid:
 
-class LifeMap:
-
-    def __init__(self, life_map, toroidal=False):
-        self.current_map = life_map
+    def __init__(self, raw_grid, toroidal=False):
+        self.raw_grid = raw_grid
         self.toroidal = toroidal
 
-    def cell(self, row, col):
-        if (row < 0) or (row >= self.total_rows()) or (col < 0) or (col >= self.total_cols()):
+    def cell(self, row, column):
+        if (row < 0) or (row >= self.total_rows()) or (column < 0) or (column >= self.total_columns()):
             return 0
-        return self.current_map[row][col]
+        return self.raw_grid[row][column]
 
     def total_rows(self):
-        return len(self.current_map)
+        return len(self.raw_grid)
 
-    def total_cols(self):
-        return len(self.current_map[0])
+    def total_columns(self):
+        return len(self.raw_grid[0])
 
 class Game:
 
-    def __init__(self, life_map, toroidal=False):
-        self.life_map = LifeMap(life_map, toroidal)
+    def __init__(self, raw_grid, toroidal=False):
+        self.grid = Grid(raw_grid, toroidal)
 
-    def current_map(self):
-        return self.life_map.current_map
+    def raw_grid(self):
+        return self.grid.raw_grid
 
-    def neighbours(self, row, col):
+    def neighbours(self, row, column):
         neighbours = 0
-        neighbours += self.life_map.cell(row-1, col-1)
-        neighbours += self.life_map.cell(row-1, col)
-        neighbours += self.life_map.cell(row-1, col+1)
-        neighbours += self.life_map.cell(row,   col-1)
-        neighbours += self.life_map.cell(row,   col+1)
-        neighbours += self.life_map.cell(row+1, col-1)
-        neighbours += self.life_map.cell(row+1, col)
-        neighbours += self.life_map.cell(row+1, col+1)
+        neighbours += self.grid.cell(row-1, column-1)
+        neighbours += self.grid.cell(row-1, column)
+        neighbours += self.grid.cell(row-1, column+1)
+        neighbours += self.grid.cell(row,   column-1)
+        neighbours += self.grid.cell(row,   column+1)
+        neighbours += self.grid.cell(row+1, column-1)
+        neighbours += self.grid.cell(row+1, column)
+        neighbours += self.grid.cell(row+1, column+1)
         return neighbours
 
-    def next_status(self, row, col):
-        neighbours = self.neighbours(row, col)
+    def next_status(self, row, column):
+        neighbours = self.neighbours(row, column)
         if neighbours < 2 or neighbours > 3:
             return 0
         if neighbours == 2:
-            return self.life_map.cell(row, col)
+            return self.grid.cell(row, column)
         return 1
 
-    def next_life_map(self):
-        life_map = copy.deepcopy(self.life_map.current_map)
-        for row in range(self.life_map.total_rows()):
-            for col in range(self.life_map.total_cols()):
-                life_map[row][col] = self.next_status(row, col)
-        self.life_map.current_map = life_map
-        return self.life_map.current_map
+    def next_step(self):
+        raw_grid = copy.deepcopy(self.grid.raw_grid)
+        for row in range(self.grid.total_rows()):
+            for column in range(self.grid.total_columns()):
+                raw_grid[row][column] = self.next_status(row, column)
+        self.grid.raw_grid = raw_grid
+        return self.grid.raw_grid
 
     def cell(self, is_life):
         if is_life == 1:
@@ -62,10 +61,10 @@ class Game:
         else:
             return "\033[30;47m  \033[0m"
 
-    def show_current_map(self, separator=' '):
+    def show_grid(self, separator=' '):
         output = ''
-        output += '  ' + (separator.join('--' for cell in self.life_map.current_map[0])) + "\n"
-        for row in self.life_map.current_map:
+        output += '  ' + (separator.join('--' for cell in self.grid.raw_grid[0])) + "\n"
+        for row in self.grid.raw_grid:
             output += '  ' + (separator.join(self.cell(is_life) for is_life in row)) + "\n"
-        output += '  ' + (separator.join('--' for cell in self.life_map.current_map[0])) + "\n"
+        output += '  ' + (separator.join('--' for cell in self.grid.raw_grid[0])) + "\n"
         return output

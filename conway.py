@@ -56,12 +56,12 @@ def print_and_wait(text):
     time.sleep(1)
 
 def main():
-    life_map = pattern_pulsar()
-    game = Life.Game(life_map)
-    print_and_wait(game.show_current_map(''))
+    raw_grid = pattern_toad()
+    game = Life.Game(raw_grid)
+    print_and_wait(game.show_grid(''))
     for i in range(50):
-        game.next_life_map()
-        print_and_wait(game.show_current_map(''))
+        game.next_step()
+        print_and_wait(game.show_grid(''))
 
 # Standard boilerplate to call the main() function.
 if __name__ == '__main__':
