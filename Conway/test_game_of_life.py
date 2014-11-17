@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import Life
+import GameOfLife
 import unittest
 
 class TestLifeGame(unittest.TestCase):
@@ -21,8 +21,8 @@ class TestLifeGame(unittest.TestCase):
                                 [0, 0, 1, 0, 0], \
                                 [0, 0, 0, 0, 0], \
                                 [0, 0, 0, 0, 0]]
-        self.game = Life.Game(self.raw_grid)
-        self.game2 = Life.Game(self.raw_grid2)
+        self.game = GameOfLife.Game(self.raw_grid)
+        self.game2 = GameOfLife.Game(self.raw_grid2)
 
     def test_raw_grid(self):
         self.assertEqual(self.raw_grid, self.game.raw_grid())
@@ -52,9 +52,9 @@ class TestLifeGame(unittest.TestCase):
         self.assertEqual("\033[30;47m  \033[0m", self.game.cell(is_life))
 
     def test_grid_total_rows(self):
-        grid = Life.Grid(self.raw_grid)
+        grid = GameOfLife.Grid(self.raw_grid)
         self.assertEqual(5, grid.total_rows())
 
     def test_grid_total_columns(self):
-        grid = Life.Grid(self.raw_grid)
+        grid = GameOfLife.Grid(self.raw_grid)
         self.assertEqual(5, grid.total_columns())

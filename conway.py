@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import Life
+import Conway.GameOfLife
 import time
 import sys
 
@@ -57,7 +57,7 @@ def print_and_wait(text):
 
 def main():
     raw_grid = pattern_toad()
-    game = Life.Game(raw_grid)
+    game = Conway.GameOfLife.Game(raw_grid)
     print_and_wait(game.show_grid(''))
     for i in range(50):
         game.next_step()
